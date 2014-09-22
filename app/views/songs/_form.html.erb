@@ -16,6 +16,14 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
+    <%= f.label :artist %><br>
+    <%= f.text_field :artist %>
+  </div>
+  <div class="field">
+    <%= f.label :genre %><br>
+    <%= f.text_field :genre %>
+  </div>
+  <div class="field">
     <%= f.label :playlist_id %>
     <%= f.collection_select(:playlist_id, Playlist.all, :id, :title, prompt: true) %>
   </div>
