@@ -1,0 +1,75 @@
+// Place all the styles related to the welcome controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import url("http://fonts.googleapis.com/css?family=Audiowide");
+
+/* background setup */
+.background {
+    background-repeat:no-repeat;
+    /* custom background-position */
+    background-position:50% 50%;
+    /* ie8- graceful degradation */
+    background-position:50% 50%9 !important;
+}
+
+#welcome_container {
+  background-image: image-url('fractal_texture.jpg');
+}
+
+
+/* fullscreen setup */
+html, body, #main-container {
+    /* give this to all tags from html to .fullscreen */
+    height:100%;
+    width: 100%;
+    max-width: 100%;
+}
+.fullscreen,
+.content-a {
+    width:100%;
+    min-height:100%;
+}
+.not-fullscreen,
+.not-fullscreen .content-a,
+.fullscreen.not-overflow,
+.fullscreen.not-overflow .content-a {
+    height:100%;
+    overflow:hidden;
+}
+
+/* content centering styles */
+.content-a {
+    display:table;
+}
+.content-b {
+    display:table-cell;
+    position:relative;
+    vertical-align:middle;
+    text-align:center;
+    color: #FFFFFF;
+
+    h1 {
+      color: #FFFFFF;
+      font-family: 'Audiowide', sans-serif;
+      font-size: 5em;
+    }
+}
+
+/* Overrides */
+header {
+  width: 100%;
+  position: absolute;
+  z-index: 20;
+
+  .top-bar  {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .top-bar-section ul li, .top-bar-section li:not(.has-form) a:not(.button) {
+    background-color: transparent;
+  }
+
+}
+
+
