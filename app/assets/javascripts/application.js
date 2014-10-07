@@ -16,4 +16,11 @@
 //= require turbolinks
 //= require_tree .
 
-$(function(){ $(document).foundation(); });
+console.log('initializing soundcloud');
+SC.initialize({
+  client_id: "3f389ab1b664ed49a2351e0edb2b8892"
+});
+
+$(document).on('page:change', function(evt) {
+  $(document).foundation(); 
+});

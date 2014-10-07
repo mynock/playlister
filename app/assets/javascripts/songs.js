@@ -27,7 +27,7 @@ $(document).on('page:change', function(evt) {
         console.log(container);
         for (var i=0; i<tracks.length; i++) {
           var list_item = $('<li>');
-          list_item.text(tracks[i].length);
+          list_item.text(tracks[i].title);
           container.append(list_item);
           // SC.oEmbed(tracks[i].permalink_url, {}, list_item[0]);
         }
