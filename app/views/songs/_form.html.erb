@@ -1,33 +1,57 @@
-<%= form_for(@song) do |f| %>
-  <% if @song.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@song.errors.count, "error") %> prohibited this song from being saved:</h2>
-
-      <ul>
-      <% @song.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<div class="row">
+  <div class="small-12 large-6 columns">
+    <div class="row collapse field">
+      <div class="small-10 columns">
+        <input type="text" id="soundcloud-search" placeholder="Search Soundcloud">
+      </div>
+      <div class="small-2 columns">
+        <a href="#" class="button postfix" id="soundcloud-search-btn">Search</a>
+      </div>
     </div>
-  <% end %>
+  </div>
+</div>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+<div class="row">
+  <ul id="soundcloud-results">
+    
+  </ul>
+</div>
+
+<div class="row">
+  <div class="small-12 large-6 columns">
+
+    <%= form_for(@song) do |f| %>
+      <% if @song.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@song.errors.count, "error") %> prohibited this song from being saved:</h2>
+
+          <ul>
+          <% @song.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= f.label :name %><br>
+        <%= f.text_field :name %>
+      </div>
+      <div class="field">
+        <%= f.label :artist %><br>
+        <%= f.text_field :artist %>
+      </div>
+      <div class="field">
+        <%= f.label :genre %><br>
+        <%= f.text_field :genre %>
+      </div>
+      <div class="field">
+        <%= f.label :playlist_id %>
+        <%= f.collection_select(:playlist_id, Playlist.all, :id, :title, prompt: true) %>
+      </div>
+      <div class="actions">
+        <%= f.submit 'Submit', class: 'button' %>
+      </div>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :artist %><br>
-    <%= f.text_field :artist %>
-  </div>
-  <div class="field">
-    <%= f.label :genre %><br>
-    <%= f.text_field :genre %>
-  </div>
-  <div class="field">
-    <%= f.label :playlist_id %>
-    <%= f.collection_select(:playlist_id, Playlist.all, :id, :title, prompt: true) %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
