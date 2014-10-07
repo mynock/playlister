@@ -60,18 +60,27 @@ function addPlayer(domEle, track) {
     urls: [
       track.permalink_url
     ],
-    onTrackReady: function() {
-      // Hijack the "follow" link to use our playlist functionality instead
-      var playlist_link = $('.follow-link');
-      playlist_link.text('ADD TO PLAYLIST').attr('href', 'javascript:;');
-
-      // Make sure the playlist link takes up the full available space
-      playlist_link.parent().removeClass('tdlarge-6').addClass('tdlarge-12');
-
-      // Add our own event handler (and remove the default one)
-      playlist_link.off('click').click(addToPlaylist);
-    }
   });
+
+  // This is a bit hacky, but ToneDen doesn't give us a DOMReady event
+  // And the trackReady event doesn't fire if the track fails to load
+  var interval = setInterval(function() {
+    var playlist_link = $('.follow-link', domEle);
+    if (playlist_link.length === 0) {
+      return;
+    }
+    else {
+      clearInterval(interval);
+    }
+    // Hijack the "follow" link to use our playlist functionality instead
+    playlist_link.text('ADD TO PLAYLIST').attr('href', 'javascript:;').attr('target', '');
+
+    // Make sure the playlist link takes up the full available space
+    playlist_link.parent().removeClass('tdlarge-6').addClass('tdlarge-12');
+
+    // Add our own event handler (and remove the default one)
+    playlist_link.off('click').click(addToPlaylist);
+  }, 200);
 }
 
 // Click handlers take one parameter: the event object
