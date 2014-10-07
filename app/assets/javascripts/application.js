@@ -21,6 +21,17 @@ SC.initialize({
   client_id: "3f389ab1b664ed49a2351e0edb2b8892"
 });
 
+(function() {
+  var script = document.createElement("script");
+
+  script.type = "text/javascript";
+  script.async = true;
+  script.src = "//sd.toneden.io/production/toneden.loader.js"
+
+  var entry = document.getElementsByTagName("script")[0];
+  entry.parentNode.insertBefore(script, entry);
+}());
+
 $(document).on('page:change', function(evt) {
   $(document).foundation(); 
 });
