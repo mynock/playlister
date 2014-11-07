@@ -85,16 +85,57 @@ function addPlayer(domEle, track) {
 
 // Click handlers take one parameter: the event object
 function addToPlaylist(event) {
-  console.log("Add To Playlist clicked! Please implement me!");
   var tgt = $(event.target);
   var parent = tgt.parents('.player-list-item');
   var trackId = parent.data('track-id')
   console.log("Clicked track ID is " + trackId);
+
+  var playlist_id = $('#playlist_id').val();
+  var url = '/playlists/' + playlist_id + '/songs'
+
+  SC.get('/tracks/' + trackId, {}, function(track) {
+    track.name = track.title;
+    var data = track;
+    // Set the soundcloud_id based on the id of the track
+    data.souncloud_id = track.id;
+    // Set the artist attribute from the user that uploaded the track
+    data.artist = track.user.username;
+
+    // Send the Ajax Request
+    $.ajax({
+      method: 'POST',
+      url: url,
+      dataType: 'json',
+      data: {song: track},
+      headers: {
+        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+      }
+    }).success(function(data) {
+      console.log(data);
+      $('#soundcloud-results').html(
+        '<div data-alert class="alert-box success radius">' +
+          'Track ' + data.name + ' succesfully added to the playlist' + 
+          '<a href="#" class="close">&times;</a>' +
+        '</div>'
+      )
+    }).fail(function(response, errors) {
+      console.log(errors);
+      $('#soundcloud-results').html(
+        '<div data-alert class="alert-box alert radius">' + 
+          'There were some errors adding the track:' + errors +
+          '<a href="#" class="close">&times;</a>' +
+        '</div>'
+      );
+    });
+  });
+
   // For simplicity sake, we can only add a single song at a time to the playlist for now
   // The goal of this function is to auto-populate the form on the page with the values
   // From the selected track (i.e. artist, genre, duration, title, etc)
   // I would recommend clearing out our current search results 
   // (or all of the list items that aren't the clicked one)
+
+
 }
 
 
